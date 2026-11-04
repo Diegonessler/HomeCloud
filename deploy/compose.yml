@@ -1,0 +1,27 @@
+# HomeCloud no NAS — entra na rede do Nextcloud para falar com ele pelo nome "nextcloud"
+services:
+  homecloud:
+    build: .
+    image: homecloud:local
+    container_name: homecloud
+    restart: unless-stopped
+    ports:
+      - "8090:3000"
+    environment:
+      NC_URL: http://nextcloud
+      FAMILY_GROUP: Familia
+      ADMIN_GROUP: admin
+      PHOTOS_FOLDER: Fotos
+      HOST_NAME: admin
+      TZ: America/Sao_Paulo
+    volumes:
+      - ./data:/data
+      - /sys/class/thermal:/host/thermal:ro
+    networks:
+      - nextcloud
+    mem_limit: 128m
+
+networks:
+  nextcloud:
+    name: nextcloud_default
+    external: true

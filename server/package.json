@@ -1,0 +1,14 @@
+{
+  "name": "homecloud-server",
+  "version": "0.1.0",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.11.2"
+  },
+  "type": "module",
+  "private": true
+}

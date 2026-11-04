@@ -1,0 +1,200 @@
+@import 'tailwindcss';
+
+/*
+ * HomeCloud — tokens de design.
+ * As cores são variáveis CSS para permitir tema claro/escuro sem duplicar classes.
+ * Uso no Tailwind: bg-bg, bg-surface, bg-surface-2, text-fg, text-muted, border-line, etc.
+ */
+@custom-variant light (&:where([data-theme='light'], [data-theme='light'] *));
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: var(--hc-bg);
+  --color-bg-2: var(--hc-bg-2);
+  --color-surface: var(--hc-surface);
+  --color-surface-2: var(--hc-surface-2);
+  --color-surface-3: var(--hc-surface-3);
+  --color-line: var(--hc-line);
+  --color-line-strong: var(--hc-line-strong);
+  --color-fg: var(--hc-fg);
+  --color-muted: var(--hc-muted);
+  --color-subtle: var(--hc-subtle);
+
+  --color-brand: var(--hc-brand);
+  --color-brand-2: var(--hc-brand-2);
+  --color-brand-soft: var(--hc-brand-soft);
+  --color-violet-soft: var(--hc-violet-soft);
+
+  --color-ok: var(--hc-ok);
+  --color-warn: var(--hc-warn);
+  --color-danger: var(--hc-danger);
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.3s ease both;
+  --animate-scale-in: scale-in 0.22s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes shimmer {
+    from { background-position: -400px 0; }
+    to { background-position: 400px 0; }
+  }
+}
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --hc-bg: #070b1a;
+  --hc-bg-2: #0a1024;
+  --hc-surface: #0e1530;
+  --hc-surface-2: #131c3c;
+  --hc-surface-3: #1a2449;
+  --hc-line: rgb(148 163 255 / 0.09);
+  --hc-line-strong: rgb(148 163 255 / 0.18);
+  --hc-fg: #e8ecff;
+  --hc-muted: #98a2c8;
+  --hc-subtle: #67719a;
+
+  --hc-brand: #5b8cff;
+  --hc-brand-2: #8b5cf6;
+  --hc-brand-soft: rgb(91 140 255 / 0.14);
+  --hc-violet-soft: rgb(139 92 246 / 0.14);
+
+  --hc-ok: #34d399;
+  --hc-warn: #fbbf24;
+  --hc-danger: #f87171;
+
+  --hc-shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px -12px rgb(0 0 0 / 0.55);
+  --hc-glow: 0 0 0 1px rgb(91 140 255 / 0.25), 0 10px 40px -10px rgb(91 140 255 / 0.45);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --hc-bg: #f3f5fc;
+  --hc-bg-2: #eceffa;
+  --hc-surface: #ffffff;
+  --hc-surface-2: #f5f7fd;
+  --hc-surface-3: #eaeefa;
+  --hc-line: rgb(30 41 99 / 0.08);
+  --hc-line-strong: rgb(30 41 99 / 0.16);
+  --hc-fg: #121838;
+  --hc-muted: #57608a;
+  --hc-subtle: #8a92b6;
+
+  --hc-brand: #3d6dfa;
+  --hc-brand-2: #7c3aed;
+  --hc-brand-soft: rgb(61 109 250 / 0.1);
+  --hc-violet-soft: rgb(124 58 237 / 0.1);
+
+  --hc-ok: #059669;
+  --hc-warn: #d97706;
+  --hc-danger: #dc2626;
+
+  --hc-shadow: 0 1px 2px rgb(18 24 56 / 0.04), 0 12px 32px -16px rgb(18 24 56 / 0.18);
+  --hc-glow: 0 0 0 1px rgb(61 109 250 / 0.2), 0 10px 30px -12px rgb(61 109 250 / 0.35);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--hc-bg);
+  color: var(--hc-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Iluminação discreta de fundo, fixa atrás do conteúdo */
+.hc-backdrop {
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgb(139 92 246 / 0.12), transparent 60%),
+    radial-gradient(800px 500px at -10% 10%, rgb(59 130 246 / 0.12), transparent 60%),
+    var(--hc-bg);
+}
+[data-theme='light'] .hc-backdrop {
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgb(124 58 237 / 0.07), transparent 60%),
+    radial-gradient(800px 500px at -10% 10%, rgb(61 109 250 / 0.08), transparent 60%),
+    var(--hc-bg);
+}
+
+@utility card {
+  background: var(--hc-surface);
+  border: 1px solid var(--hc-line);
+  border-radius: 1.25rem;
+  box-shadow: var(--hc-shadow);
+}
+
+@utility glow {
+  box-shadow: var(--hc-glow);
+}
+
+@utility text-gradient {
+  background: linear-gradient(100deg, var(--hc-brand), var(--hc-brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background-image: linear-gradient(120deg, var(--hc-brand), var(--hc-brand-2));
+}
+
+@utility skeleton {
+  background: linear-gradient(90deg, var(--hc-surface-2) 0, var(--hc-surface-3) 40%, var(--hc-surface-2) 80%);
+  background-size: 800px 100%;
+  animation: var(--animate-shimmer);
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hc-line-strong) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--hc-brand);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Preferência "Reduzir animações" (Minha conta) */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
